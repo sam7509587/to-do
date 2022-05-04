@@ -1,18 +1,16 @@
 const joi  = require("joi");
-exports.signUpValidition=(req,res,next)=>{
+const { validateBody } = require("../middleware");
+exports.signUpValidition=(req,_,next)=>{
     const schema = joi.object({
-        email: joi.string().email(),
-        password: joi.string().min(6).max(15)
+        email: joi.string().email().trim(),
+        password: joi.string().min(6).max(15).trim()
     })
-    const result = schema.validate(req.body);
-    if(result.error){
-        return res.status(409).json({
-            statusCode: 409,
-            message: result.error.details[0].message
-        })
-    }
-    else{
-        next()
-    }
+    validateBody(schema,req,next)
 }
 
+exports.editUserValidition=(req,_,next)=>{
+    const schema = joi.object({
+        password: joi.string().min(6).max(15).trim()
+    })
+    validateBody(schema,req,next)
+}

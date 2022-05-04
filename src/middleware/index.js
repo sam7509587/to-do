@@ -1,2 +1,3 @@
 const {verifyToken}= require("./verifyToken")
-module.exports = {verifyToken}
+const {validateBody}=require("./validateBody")
+module.exports = {verifyToken,validateBody}
